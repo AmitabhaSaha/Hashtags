@@ -112,6 +112,13 @@ open class HashtagView: UIView {
     }
     
     @IBInspectable
+    open var borderColor: UIColor = UIColor.white {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    @IBInspectable
     open var tagBackgroundColor: UIColor = .lightGray {
         didSet {
             self.collectionView.reloadData()
@@ -210,6 +217,7 @@ open class HashtagView: UIView {
         configuration.removeButtonSpacing = self.removeButtonSpacing
         configuration.backgroundColor = self.tagBackgroundColor
         configuration.cornerRadius = self.tagCornerRadius
+        configuration.borderColor = self.borderColor
         configuration.textSize = self.textSize
         configuration.textColor = self.tagTextColor
         
@@ -324,15 +332,13 @@ extension HashtagView: UICollectionViewDelegate, UICollectionViewDataSource {
         let hashtag: HashTag = self.hashtags[indexPath.item]
         
         if hashtag.isRemovable {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemovableHashtagCollectionViewCell.cellIdentifier,
-                                                          for: indexPath) as! RemovableHashtagCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemovableHashtagCollectionViewCell.cellIdentifier, for: indexPath) as! RemovableHashtagCollectionViewCell
             
             cell.delegate = self
             cell.configureWithTag(tag: hashtag, configuration: makeConfiguration())
             return cell
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HashtagCollectionViewCell.cellIdentifier,
-                                                      for: indexPath) as! HashtagCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HashtagCollectionViewCell.cellIdentifier, for: indexPath) as! HashtagCollectionViewCell
 
         cell.configureWithTag(tag: hashtag, configuration: makeConfiguration())
         return cell

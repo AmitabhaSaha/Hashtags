@@ -121,6 +121,8 @@ extension RemovableHashtagCollectionViewCell {
         
         self.layer.cornerRadius = configuration.cornerRadius
         self.backgroundColor = configuration.backgroundColor
+        self.layer.borderColor = configuration.borderColor.cgColor
+        self.layer.borderWidth = 2
         
         self.wordLabel.textColor = configuration.textColor
         self.wordLabel.font = UIFont.systemFont(ofSize: configuration.textSize)
